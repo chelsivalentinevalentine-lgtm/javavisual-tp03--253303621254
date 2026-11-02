@@ -65,3 +65,27 @@ Screenshot menunjukkan program berhasil menampilkan tiga karakter, melakukan lev
 ## 7. Link Google Docs
 
 https://docs.google.com/document/d/1GbjOBjqaqCjnWuIgEAI1WUFzneOqaH9qc4DoRaXp3_E/edit?usp=sharing
+
+## TP5 — Character Manager Sprint #2
+
+### Deskripsi
+TP5 mengembangkan aplikasi Character Manager dengan pengelolaan karakter menggunakan `ArrayList`, pencarian, penghapusan, analisis data, dan pemahaman tentang object reference.
+
+### Fitur yang Ditambahkan
+- **Validasi karakter:** Menolak karakter dengan nama yang sudah terdaftar.
+- **Pencarian karakter:** Mencari karakter berdasarkan nama.
+- **Penghapusan karakter:** Menghapus karakter berdasarkan nama.
+- **Total karakter:** Menampilkan jumlah karakter yang tersimpan.
+- **Defensive copy:** `getAllCharacters()` mengembalikan salinan daftar agar daftar asli tidak dapat dimodifikasi secara langsung.
+- **Analisis data:** Menghitung rata-rata level dengan `getAverageLevel()`.
+- **Filter tipe:** Mencari karakter berdasarkan `CharacterType` menggunakan `findByType()`.
+- **Fitur analitik mandiri:** `findStrongest()` mencari karakter dengan attack power tertinggi.
+
+### Konsep Object Reference
+Pengujian object reference menunjukkan bahwa dua variabel yang menunjuk objek yang sama akan melihat perubahan objek tersebut. Pengujian defensive copy menunjukkan bahwa penambahan karakter ke daftar salinan tidak mengubah daftar asli.
+
+### Bukti Program
+![alt text](Bukti_Output_TP5.png)
+
+### Google Docs
+Link dokumen laporan TP5: https://docs.google.com/document/d/1Qa3dCUf4u4hepcE3vYz8KQwR3NZRN3iRZ17y6c4-nPk/edit?usp=sharing

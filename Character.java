@@ -1,13 +1,12 @@
 
 package com.unpri.charactermanager.model;
 
-/**
- * Merepresentasikan satu karakter dalam aplikasi Character Manager.
- * Menerapkan prinsip Encapsulation dengan atribut private.
- */
+import java.util.Objects;
+
 public class Character {
 
-    // ===== ATRIBUT =====
+    private static int totalCharacterCreated = 0;
+
     private int id;
     private String name;
     private CharacterType type;
@@ -16,16 +15,16 @@ public class Character {
     private int attackPower;
     private int mana;
 
-    // ===== CONSTRUCTOR 1: Membuat karakter baru =====
+    // Constructor untuk membuat karakter baru
     public Character(String name, CharacterType type, int level) {
+        this.id = ++totalCharacterCreated;
         this.name = name;
         this.type = type;
-        setLevel(level);
-        this.id = 0;
         this.mana = 0;
+        setLevel(level);
     }
 
-    // ===== CONSTRUCTOR 2: Memuat karakter dari database =====
+    // Constructor untuk memuat data karakter yang sudah ada
     public Character(int id, String name, CharacterType type,
                      int level, int hitPoints, int attackPower) {
         this.id = id;
@@ -37,7 +36,6 @@ public class Character {
         this.mana = 0;
     }
 
-    // ===== HELPER PRIVATE =====
     private int calculateBaseHP() {
         return 100 + (level * 10);
     }
@@ -46,7 +44,6 @@ public class Character {
         return 10 + (level * 5);
     }
 
-    // ===== GETTER =====
     public int getId() {
         return id;
     }
@@ -75,16 +72,27 @@ public class Character {
         return mana;
     }
 
-    // ===== SETTER =====
     public void setId(int id) {
         this.id = id;
     }
 
+    public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nama tidak boleh kosong!");
+        }
+        this.name = name;
+    }
+
+    public void setType(CharacterType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("Tipe karakter tidak boleh null!");
+        }
+        this.type = type;
+    }
+
     public void setLevel(int level) {
         if (level < 1) {
-            throw new IllegalArgumentException(
-                "Level minimal adalah 1"
-            );
+            throw new IllegalArgumentException("Level minimal 1!");
         }
 
         this.level = level;
@@ -94,29 +102,49 @@ public class Character {
 
     public void setMana(int mana) {
         if (mana < 0) {
-            throw new IllegalArgumentException(
-                "Mana tidak boleh negatif"
-            );
+            throw new IllegalArgumentException("Mana tidak boleh negatif!");
         }
-
         this.mana = mana;
     }
 
-    // ===== METHOD IS ALIVE =====
     public boolean isAlive() {
         return hitPoints > 0;
     }
 
-    // ===== TOSTRING =====
     @Override
     public String toString() {
-        return "Character{id=" + id
-                + ", name='" + name + '\''
-                + ", type=" + type
-                + ", level=" + level
-                + ", hp=" + hitPoints
-                + ", atk=" + attackPower
-                + ", mana=" + mana
-                + '}';
+        return "Character{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", level=" + level +
+                ", hp=" + hitPoints +
+                ", atk=" + attackPower +
+                ", mana=" + mana +
+                '}';
+    }
+
+    // [TP5] Membandingkan karakter berdasarkan isi nama
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Character)) {
+            return false;
+        }
+
+        Character other = (Character) obj;
+        return Objects.equals(this.name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    public static int getTotalCharacterCreated() {
+        return totalCharacterCreated;
     }
 }
