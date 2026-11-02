@@ -1,91 +1,94 @@
-# Character Manager — TP3 (Java Visual SIH-6406)
+# Character Manager — TP8
 
 ## 1. Deskripsi
 
-Character Manager merupakan aplikasi Java sederhana untuk mengelola dan menampilkan data karakter game. Project ini dibuat untuk memenuhi tugas TP3 mata kuliah Java Visual SIH-6406.
+Character Manager merupakan aplikasi Java sederhana untuk mengelola dan menampilkan data karakter game menggunakan Java Swing. Pada TP8, aplikasi dikembangkan dengan menambahkan tampilan GUI menggunakan `JFrame`, menampilkan data karakter secara dinamis, serta menghitung rata-rata level karakter.
 
-Aplikasi ini menerapkan konsep Object-Oriented Programming (OOP), seperti class, object, constructor, encapsulation, getter, setter, dan enum. Program juga memiliki fitur level up, pengaturan mana, serta pengecekan status hidup karakter.
+## 2. Tujuan
 
-## 2. Fitur Program
-
-- Membuat karakter menggunakan constructor.
-- Menampilkan data karakter.
-- Menggunakan enum `CharacterType` untuk jenis karakter.
-- Mengatur level karakter.
-- Menghitung HP dan attack berdasarkan level.
-- Mengatur mana dengan validasi.
-- Mengecek status hidup menggunakan `isAlive()`.
-- Menampilkan data karakter melalui method `toString()`.
+- Memahami pembuatan GUI menggunakan Java Swing.
+- Mengimplementasikan `JFrame`, `JPanel`, dan `JLabel`.
+- Menampilkan data karakter menggunakan perulangan.
+- Memahami penggunaan `SwingUtilities.invokeLater()`.
+- Mengimplementasikan konsep MVC dalam aplikasi Java.
 
 ## 3. Struktur Project
 
 ```text
-CharacterManagerr
+CharacterManager
 ├── src
 │   ├── Main.java
 │   └── com
 │       └── unpri
 │           └── charactermanager
-│               └── model
-│                   ├── Character.java
-│                   └── CharacterType.java
+│               ├── model
+│               │   ├── Character.java
+│               │   ├── CharacterType.java
+│               │   └── CharacterManager.java
+│               └── view
+│                   └── MainWindow.java
 ├── out
 └── README.md
 ```
 
-## 4. Cara Menjalankan Program
+## 4. Implementasi Program
 
-Compile program:
+### MainWindow
 
-```powershell
-javac -d out src\com\unpri\charactermanager\model\CharacterType.java src\com\unpri\charactermanager\model\Character.java src\Main.java
-```
+`MainWindow` merupakan bagian View yang bertanggung jawab menampilkan data karakter dalam jendela Java Swing. Data karakter diterima melalui constructor dari `Main.java`.
 
-Jalankan program:
+Data karakter ditampilkan menggunakan perulangan `for`, sehingga jumlah karakter yang ditampilkan mengikuti data yang diberikan. Program juga menampilkan rata-rata level karakter menggunakan `JLabel`.
 
-```powershell
-java -cp out Main
-```
+### Main.java
 
-## 5. Bukti Program
+`Main.java` merupakan titik awal program. Pada bagian ini, objek `CharacterManager` dibuat dan digunakan untuk menambahkan data karakter.
 
-Screenshot hasil output program:
+GUI dijalankan menggunakan `SwingUtilities.invokeLater()` agar pembuatan tampilan dilakukan pada Event Dispatch Thread (EDT).
 
-![alt text](Bukti_Output_TP3.png)
+## 5. Data Karakter
 
-Screenshot menunjukkan program berhasil menampilkan tiga karakter, melakukan level up pada Arjuna, mengatur mana Luna, dan menjalankan method `isAlive()` dengan hasil `true`.
+Program menampilkan lima karakter:
 
-## 6. Identitas
+| Nama | Tipe | Level |
+|---|---|---:|
+| Arjuna | WARRIOR | 5 |
+| Merlin | MAGE | 3 |
+| Athena | ARCHER | 4 |
+| Luna | HEALER | 6 |
+| Bima | WARRIOR | 8 |
 
-- Nama: Chelsi Valentine Harefa
-- NIM: 253303621254
-- Mata Kuliah: Java Visual SIH-6406
-- Tugas: TP3 — Character Manager Sprint #1
+Rata-rata level karakter adalah:
 
-## 7. Link Google Docs
+\[
+\frac{5+3+4+6+8}{5}=5.20
+\]
 
-https://docs.google.com/document/d/1GbjOBjqaqCjnWuIgEAI1WUFzneOqaH9qc4DoRaXp3_E/edit?usp=sharing
+## 6. Analisis MVC
 
-## TP5 — Character Manager Sprint #2
+Aplikasi menerapkan konsep Model-View dengan pemisahan tanggung jawab:
 
-### Deskripsi
-TP5 mengembangkan aplikasi Character Manager dengan pengelolaan karakter menggunakan `ArrayList`, pencarian, penghapusan, analisis data, dan pemahaman tentang object reference.
+- **Model:** `Character`, `CharacterType`, dan `CharacterManager` mengelola data serta logika karakter.
+- **View:** `MainWindow` menampilkan data karakter dalam bentuk GUI.
+- **Main:** Menginisialisasi data dan menghubungkan `CharacterManager` dengan `MainWindow`.
 
-### Fitur yang Ditambahkan
-- **Validasi karakter:** Menolak karakter dengan nama yang sudah terdaftar.
-- **Pencarian karakter:** Mencari karakter berdasarkan nama.
-- **Penghapusan karakter:** Menghapus karakter berdasarkan nama.
-- **Total karakter:** Menampilkan jumlah karakter yang tersimpan.
-- **Defensive copy:** `getAllCharacters()` mengembalikan salinan daftar agar daftar asli tidak dapat dimodifikasi secara langsung.
-- **Analisis data:** Menghitung rata-rata level dengan `getAverageLevel()`.
-- **Filter tipe:** Mencari karakter berdasarkan `CharacterType` menggunakan `findByType()`.
-- **Fitur analitik mandiri:** `findStrongest()` mencari karakter dengan attack power tertinggi.
+Pemisahan ini membuat program lebih terstruktur dan memudahkan pengembangan fitur berikutnya.
 
-### Konsep Object Reference
-Pengujian object reference menunjukkan bahwa dua variabel yang menunjuk objek yang sama akan melihat perubahan objek tersebut. Pengujian defensive copy menunjukkan bahwa penambahan karakter ke daftar salinan tidak mengubah daftar asli.
+## 7. Bukti Program
 
-### Bukti Program
-![alt text](Bukti_Output_TP5.png)
+### Screenshot 1 — Tampilan dengan Lima Karakter
 
-### Google Docs
-Link dokumen laporan TP5: https://docs.google.com/document/d/1Qa3dCUf4u4hepcE3vYz8KQwR3NZRN3iRZ17y6c4-nPk/edit?usp=sharing
+![alt text](TP8_MainWindow_5_Characters.png)
+
+### Screenshot 2 — Perubahan Data Karakter
+
+![alt text](TP8_MainWindow_Changed_Data.png)
+
+## 8. Kesimpulan
+
+Melalui TP8, aplikasi Character Manager berhasil dikembangkan menjadi aplikasi desktop menggunakan Java Swing. Data karakter ditampilkan secara dinamis melalui perulangan, rata-rata level dihitung berdasarkan data yang tersedia, dan GUI dijalankan menggunakan `SwingUtilities.invokeLater()`. Implementasi ini membantu memahami dasar pengembangan GUI serta pemisahan Model dan View dalam konsep MVC.
+
+## 9. Dokumen Google Docs
+
+Dokumen Google Docs berisi penjelasan teori dan analisis mengenai Java Swing, program sequential dan event-driven, penggunaan `SwingUtilities.invokeLater()`, konsep inheritance dan komposisi, serta penerapan MVC pada aplikasi Character Manager.
+
+https://docs.google.com/document/d/1kIS5dgznQwIm7O-5p7fOIhc0tNEwpKesG9T6N37T1bE/edit?usp=sharing
